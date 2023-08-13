@@ -74,5 +74,22 @@ namespace ExpenseTrackerAPI.Services
             return response;
 
         }
+
+        public async Task<List<ListCategoryResp>> ListCategory(string UserId)
+        {
+            var response = await _expenseRepository.ListCategory(UserId);
+            return response;
+        }
+
+        public async Task<List<ListBudgetResp>> ListBudget(string UserId)
+        {
+            var response = await _expenseRepository.ListBudget(UserId);
+            return response;
+        }
+        public async Task<List<ListExpensesResp>> ListExpenses(string UserId)
+        {
+            var response = await _expenseRepository.ListExpenses(UserId);
+            return response;
+        }
     }
 }

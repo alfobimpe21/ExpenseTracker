@@ -37,9 +37,16 @@ namespace ExpenseTrackerAPI.Services
                     conn.Open();
                 command = conn.CreateCommand();
 
-                command.CommandText = @"INSERT INTO Category(CategoryName) VALUES(@categoryName)";
+                command.CommandText = @"INSERT INTO Category(UserId,CategoryName) VALUES(@UserId,@categoryName)";
 
                 var param = command.CreateParameter();
+                param.DbType = DbType.String;
+                param.ParameterName = "@UserId";
+                param.Direction = ParameterDirection.Input;
+                param.Value = request.UserId;
+                command.Parameters.Add(param);
+
+                param = command.CreateParameter();
                 param.DbType = DbType.String;
                 param.ParameterName = "@categoryName";
                 param.Direction = ParameterDirection.Input;
@@ -347,5 +354,160 @@ namespace ExpenseTrackerAPI.Services
 
             return response;
         }
+
+        public async Task<List<ListCategoryResp>> ListCategory(string UserId)
+        {
+            var listResp = new List<ListCategoryResp>();
+            IDbCommand command;
+            IDbConnection conn = _connect.GetSQLDataConnection();
+
+            try
+            {
+                if (conn.State != ConnectionState.Open)
+                    conn.Open();
+                command = conn.CreateCommand();
+
+                command.CommandText = @"SELECT * FROM Category WHERE UserId = @UserId";
+
+
+                var param = command.CreateParameter();
+                param.DbType = DbType.String;
+                param.ParameterName = "@UserId";
+                param.Direction = ParameterDirection.Input;
+                param.Value = UserId;
+                command.Parameters.Add(param);
+
+
+                command.CommandTimeout = 80;
+
+                using IDataReader rs = Task.FromResult(command.ExecuteReader(CommandBehavior.CloseConnection)).Result;
+                while (rs != null && rs.Read())
+                {
+                    var category = new ListCategoryResp()
+                    {
+                        Id = int.Parse(rs["Id"].ToString().Trim()),
+                        UserId = rs["UserId"].ToString().Trim(),
+                        CategoryName = rs["CategoryName"].ToString().Trim(),
+                        CreateDate = Convert.ToDateTime(rs["CreateDate"].ToString().Trim())
+                    };
+
+                    listResp.Add(category);
+                }
+
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error >>>>>>>>>> {ex.Message}");
+            }
+
+            return listResp;
+        }
+       
+        public async Task<List<ListBudgetResp>> ListBudget(string UserId)
+        {
+            var listResp = new List<ListBudgetResp>();
+            IDbCommand command;
+            IDbConnection conn = _connect.GetSQLDataConnection();
+
+            try
+            {
+                if (conn.State != ConnectionState.Open)
+                    conn.Open();
+                command = conn.CreateCommand();
+
+                command.CommandText = @"SELECT * FROM Budgets WHERE UserId = @UserId";
+
+
+                var param = command.CreateParameter();
+                param.DbType = DbType.String;
+                param.ParameterName = "@UserId";
+                param.Direction = ParameterDirection.Input;
+                param.Value = UserId;
+                command.Parameters.Add(param);
+
+
+                command.CommandTimeout = 80;
+
+                using IDataReader rs = Task.FromResult(command.ExecuteReader(CommandBehavior.CloseConnection)).Result;
+                while (rs != null && rs.Read())
+                {
+                    var budget = new ListBudgetResp()
+                    {
+                        Id = int.Parse(rs["Id"].ToString().Trim()),
+                        UserId = rs["UserId"].ToString().Trim(),
+                        Amount = Convert.ToDecimal(rs["Amount"].ToString().Trim()),
+                        CategoryId = int.Parse(rs["CategoryId"].ToString().Trim()),
+                        Salary = Convert.ToDecimal(rs["Salary"].ToString().Trim()),
+                        SalaryMonth = rs["SalaryMonth"].ToString().Trim(),
+                        SalaryPercentage = rs["SalaryPercentage"].ToString().Trim(),
+                        CreateDate = Convert.ToDateTime(rs["CreatedDate"].ToString().Trim())
+                    };
+
+                    listResp.Add(budget);
+                }
+
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error >>>>>>>>>> {ex.Message}");
+            }
+
+            return listResp;
+        }
+
+        public async Task<List<ListExpensesResp>> ListExpenses(string UserId)
+        {
+            var listResp = new List<ListExpensesResp>();
+            IDbCommand command;
+            IDbConnection conn = _connect.GetSQLDataConnection();
+
+            try
+            {
+                if (conn.State != ConnectionState.Open)
+                    conn.Open();
+                command = conn.CreateCommand();
+
+                command.CommandText = @"SELECT * FROM Expenses WHERE UserId = @UserId";
+
+
+                var param = command.CreateParameter();
+                param.DbType = DbType.String;
+                param.ParameterName = "@UserId";
+                param.Direction = ParameterDirection.Input;
+                param.Value = UserId;
+                command.Parameters.Add(param);
+
+
+                command.CommandTimeout = 80;
+
+                using IDataReader rs = Task.FromResult(command.ExecuteReader(CommandBehavior.CloseConnection)).Result;
+                while (rs != null && rs.Read())
+                {
+                    var expense = new ListExpensesResp()
+                    {
+                        Id = int.Parse(rs["Id"].ToString().Trim()),
+                        UserId = rs["UserId"].ToString().Trim(),
+                        Amount = Convert.ToDecimal(rs["Amount"].ToString().Trim()),
+                        CategoryId = int.Parse(rs["CategoryId"].ToString().Trim()),
+                        Items = rs["Items"].ToString().Trim(),
+                        CreatedDate = Convert.ToDateTime(rs["CreateDate"].ToString().Trim())
+                    };
+
+                    listResp.Add(expense);
+                }
+
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error >>>>>>>>>> {ex.Message}");
+            }
+
+            return listResp;
+        }
+
+
     }
 }

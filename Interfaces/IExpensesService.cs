@@ -7,5 +7,10 @@ namespace ExpenseTrackerAPI.Interfaces
         Task<BaseResponse> AddCategory(AddCategoryRq rq);
         Task<BaseResponse> AddBudget(AddBudgetsRq rq);
         Task<BaseResponse> AddExpenses(AddExpensesRq rq);
+
+        Task<List<ListCategoryResp>> ListCategory(string UserId);
+
+        Task<List<ListBudgetResp>> ListBudget(string UserId);
+        Task<List<ListExpensesResp>> ListExpenses(string UserId);
     }
 }

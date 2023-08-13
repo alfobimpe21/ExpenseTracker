@@ -1,6 +1,7 @@
 ﻿using ExpenseTrackerAPI.Constants;
 using ExpenseTrackerAPI.Interfaces;
 using ExpenseTrackerAPI.Models;
+using ExpenseTrackerAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -73,5 +74,28 @@ namespace ExpenseTrackerAPI.Controllers
 
             return response;
         }
+
+        [HttpPost("ListCategory")]
+        public async Task<List<ListCategoryResp>> ListCategory([FromBody] ListRequest rq)
+        {
+            var response = await _expensesService.ListCategory(rq.UserId);
+            return response;
+        }        
+
+        [HttpPost("ListBudget")]
+        public async Task<List<ListBudgetResp>> ListBudget([FromBody] ListRequest rq)
+        {
+            var response = await _expensesService.ListBudget(rq.UserId);
+            return response;
+        }
+
+        [HttpPost("ListExpenses")]
+        public async Task<List<ListExpensesResp>> ListExpenses([FromBody] ListRequest rq)
+        {
+            var response = await _expensesService.ListExpenses(rq.UserId);
+            return response;
+        }
+
+
     }
 }

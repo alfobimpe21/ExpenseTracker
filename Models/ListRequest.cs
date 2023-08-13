@@ -1,8 +1,7 @@
 ﻿namespace ExpenseTrackerAPI.Models
 {
-    public class AddCategoryRq
+    public class ListRequest
     {
         public string UserId { get; set; }
-        public string CategoryName { get; set; }
     }
 }

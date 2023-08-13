@@ -9,5 +9,8 @@ namespace ExpenseTrackerAPI.Interfaces
         Task<BaseResponse> AddExpenses(AddExpensesRq request);
         Task<BaseResponse> RegisterUser(RegisterUserRq request);
         Task<UserDetailsResp> AuthenticateUser(LoginRq request);
+        Task<List<ListCategoryResp>> ListCategory(string UserId);
+        Task<List<ListBudgetResp>> ListBudget(string UserId);
+        Task<List<ListExpensesResp>> ListExpenses(string UserId);
     }
 }
