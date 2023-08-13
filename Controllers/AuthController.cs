@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ExpenseTrackerAPI.Constants;
+using ExpenseTrackerAPI.Interfaces;
+using ExpenseTrackerAPI.Models;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,36 +11,48 @@ namespace ExpenseTrackerAPI.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        // GET: api/<AuthController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IAuthService _authService;
+        public AuthController(IAuthService authService)
         {
-            return new string[] { "value1", "value2" };
+            _authService = authService;
         }
 
-        // GET api/<AuthController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpPost("RegisterUser")]
+        public async Task<BaseResponse> ResgisterUser([FromBody] RegisterUserRq rq)
         {
-            return "value";
+            var response = new BaseResponse()
+            {
+                StatusCode = ErrorCodes.ERROR_CODE,
+                StatusDescription = ErrorCodes.ERROR_MSG,
+                Success = false
+            };
+
+            if(ModelState.IsValid)
+            {
+                response =  await _authService.RegisterUser(rq);
+                return response;
+            }
+
+            return response;
         }
 
-        // POST api/<AuthController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("ValidateUser")]
+        public async Task<LoginResp> ValidateUser([FromBody] LoginRq rq)
         {
-        }
+            var response = new LoginResp()
+            {
+                StatusCode = ErrorCodes.ERROR_CODE,
+                StatusDescription = ErrorCodes.ERROR_MSG,
+                Success = false
+            };
 
-        // PUT api/<AuthController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+            if (ModelState.IsValid)
+            {
+                response = await _authService.AuthenticateUser(rq);
+                return response;
+            }
 
-        // DELETE api/<AuthController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return response;
         }
     }
 }

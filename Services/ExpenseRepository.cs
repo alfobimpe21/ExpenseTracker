@@ -23,8 +23,8 @@ namespace ExpenseTrackerAPI.Services
         {
             var response = new BaseResponse()
             {
-                StatusCode = StatusCode.ERROR_CODE,
-                StatusDescription = StatusCode.ERROR_MSG,
+                StatusCode = ErrorCodes.ERROR_CODE,
+                StatusDescription = ErrorCodes.ERROR_MSG,
                 Success = false
             };
 
@@ -52,8 +52,8 @@ namespace ExpenseTrackerAPI.Services
                 if (res == 1)
                 {
                     response.Success = true;
-                    response.StatusCode = StatusCode.SUCCESS_CODE;
-                    response.StatusDescription = StatusCode.SUCCESS_MSG;
+                    response.StatusCode = ErrorCodes.SUCCESS_CODE;
+                    response.StatusDescription = ErrorCodes.SUCCESS_MSG;
                 }
                
                 conn.Close();
@@ -70,8 +70,8 @@ namespace ExpenseTrackerAPI.Services
         {
             var response = new BaseResponse()
             {
-                StatusCode = StatusCode.ERROR_CODE,
-                StatusDescription = StatusCode.ERROR_MSG,
+                StatusCode = ErrorCodes.ERROR_CODE,
+                StatusDescription = ErrorCodes.ERROR_MSG,
                 Success = false
             };
 
@@ -134,8 +134,8 @@ namespace ExpenseTrackerAPI.Services
                 if (res == 1)
                 {
                     response.Success = true;
-                    response.StatusCode = StatusCode.SUCCESS_CODE;
-                    response.StatusDescription = StatusCode.SUCCESS_MSG;
+                    response.StatusCode = ErrorCodes.SUCCESS_CODE;
+                    response.StatusDescription = ErrorCodes.SUCCESS_MSG;
                 }
 
                 conn.Close();
@@ -152,8 +152,8 @@ namespace ExpenseTrackerAPI.Services
         {
             var response = new BaseResponse()
             {
-                StatusCode = StatusCode.ERROR_CODE,
-                StatusDescription = StatusCode.ERROR_MSG,
+                StatusCode = ErrorCodes.ERROR_CODE,
+                StatusDescription = ErrorCodes.ERROR_MSG,
                 Success = false
             };
 
@@ -166,7 +166,7 @@ namespace ExpenseTrackerAPI.Services
                     conn.Open();
                 command = conn.CreateCommand();
 
-                command.CommandText = @"INSERT INTO Expenses(UserId,Items,CategoryId,Amount) VALUES(@UserId,@Items,@CategoryId,@Amount)";
+                command.CommandText = @"INSERT INTO Expenses(UserId,Items,CategoryId,Amount,CreateDate) VALUES(@UserId,@Items,@CategoryId,@Amount,@CreateDate)";
 
                 var param = command.CreateParameter();
                 param.DbType = DbType.String;
@@ -196,14 +196,21 @@ namespace ExpenseTrackerAPI.Services
                 param.Value = request.Amount;
                 command.Parameters.Add(param);
 
+                param = command.CreateParameter();
+                param.DbType = DbType.DateTime;
+                param.ParameterName = "@CreateDate";
+                param.Direction = ParameterDirection.Input;
+                param.Value = request.CreatedDate;
+                command.Parameters.Add(param);
+
                 command.CommandTimeout = 80;
 
                 var res = command.ExecuteNonQuery();
                 if (res == 1)
                 {
                     response.Success = true;
-                    response.StatusCode = StatusCode.SUCCESS_CODE;
-                    response.StatusDescription = StatusCode.SUCCESS_MSG;
+                    response.StatusCode = ErrorCodes.SUCCESS_CODE;
+                    response.StatusDescription = ErrorCodes.SUCCESS_MSG;
                 }
 
                 conn.Close();
@@ -220,8 +227,8 @@ namespace ExpenseTrackerAPI.Services
         {
             var response = new BaseResponse()
             {
-                StatusCode = StatusCode.ERROR_CODE,
-                StatusDescription = StatusCode.ERROR_MSG,
+                StatusCode = ErrorCodes.ERROR_CODE,
+                StatusDescription = ErrorCodes.ERROR_MSG,
                 Success = false
             };
 
@@ -230,17 +237,19 @@ namespace ExpenseTrackerAPI.Services
 
             try
             {
+                
+
                 if (conn.State != ConnectionState.Open)
                     conn.Open();
                 command = conn.CreateCommand();
 
-                command.CommandText = @"INSERT INTO Users(UserId,FirstName,Surname,Email,Password) VALUES(@UserId,@FirstName,@Surname,@Email,@Password)";
+                command.CommandText = @"INSERT INTO Users(Id,FirstName,Surname,Email,Password) VALUES(@UserId,@FirstName,@Surname,@Email,@Password)";
 
                 var param = command.CreateParameter();
                 param.DbType = DbType.String;
                 param.ParameterName = "@UserId";
                 param.Direction = ParameterDirection.Input;
-                param.Value = request.UserId;
+                param.Value = Guid.NewGuid().ToString("N");
                 command.Parameters.Add(param);
 
                 param = command.CreateParameter();
@@ -277,8 +286,8 @@ namespace ExpenseTrackerAPI.Services
                 if (res == 1)
                 {
                     response.Success = true;
-                    response.StatusCode = StatusCode.SUCCESS_CODE;
-                    response.StatusDescription = StatusCode.SUCCESS_MSG;
+                    response.StatusCode = ErrorCodes.SUCCESS_CODE;
+                    response.StatusDescription = ErrorCodes.SUCCESS_MSG;
                 }
 
                 conn.Close();

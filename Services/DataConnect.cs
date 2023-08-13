@@ -20,7 +20,7 @@ namespace ExpenseTrackerAPI.Services
             SqlConnection? conn = null;
             try
             {
-                conn = new SqlConnection(_connectionStrings.CertifiedPayDB);
+                conn = new SqlConnection(_connectionStrings.ExpenseTrackerDB);
                 conn.Open();
             }
             catch (Exception ex)
@@ -45,7 +45,7 @@ namespace ExpenseTrackerAPI.Services
     }
     public class ConnectionStrings
     {
-        public string? CertifiedPayDB { get; set; }
+        public string? ExpenseTrackerDB { get; set; }
 
     }
 }

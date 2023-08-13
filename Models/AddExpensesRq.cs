@@ -6,5 +6,6 @@
         public decimal Amount { get; set; }
         public string Items { get; set; }
         public int CategoryId { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

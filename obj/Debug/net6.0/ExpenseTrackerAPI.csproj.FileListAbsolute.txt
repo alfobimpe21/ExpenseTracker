@@ -30,3 +30,9 @@ C:\Users\HP GAMER\Desktop\PROJECT WORK\ExpenseTrackerAPI\obj\Debug\net6.0\refint
 C:\Users\HP GAMER\Desktop\PROJECT WORK\ExpenseTrackerAPI\obj\Debug\net6.0\ExpenseTrackerAPI.pdb
 C:\Users\HP GAMER\Desktop\PROJECT WORK\ExpenseTrackerAPI\obj\Debug\net6.0\ExpenseTrackerAPI.genruntimeconfig.cache
 C:\Users\HP GAMER\Desktop\PROJECT WORK\ExpenseTrackerAPI\obj\Debug\net6.0\ref\ExpenseTrackerAPI.dll
+C:\Users\HP GAMER\Desktop\PROJECT WORK\ExpenseTrackerAPI\bin\Debug\net6.0\System.Data.SqlClient.dll
+C:\Users\HP GAMER\Desktop\PROJECT WORK\ExpenseTrackerAPI\bin\Debug\net6.0\runtimes\win-arm64\native\sni.dll
+C:\Users\HP GAMER\Desktop\PROJECT WORK\ExpenseTrackerAPI\bin\Debug\net6.0\runtimes\win-x64\native\sni.dll
+C:\Users\HP GAMER\Desktop\PROJECT WORK\ExpenseTrackerAPI\bin\Debug\net6.0\runtimes\win-x86\native\sni.dll
+C:\Users\HP GAMER\Desktop\PROJECT WORK\ExpenseTrackerAPI\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\HP GAMER\Desktop\PROJECT WORK\ExpenseTrackerAPI\bin\Debug\net6.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll

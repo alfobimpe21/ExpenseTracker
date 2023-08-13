@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ExpenseTrackerAPI.Constants;
+using ExpenseTrackerAPI.Interfaces;
+using ExpenseTrackerAPI.Models;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,36 +11,67 @@ namespace ExpenseTrackerAPI.Controllers
     [ApiController]
     public class ExpensesController : ControllerBase
     {
-        // GET: api/<ExpensesController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IExpensesService _expensesService;
+        public ExpensesController(IExpensesService expensesService)
         {
-            return new string[] { "value1", "value2" };
+            _expensesService = expensesService;
         }
 
-        // GET api/<ExpensesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpPost("AddCategory")]
+        public async Task<BaseResponse> AddCategory([FromBody] AddCategoryRq rq)
         {
-            return "value";
+            var response = new BaseResponse()
+            {
+                StatusCode = ErrorCodes.ERROR_CODE,
+                StatusDescription = ErrorCodes.ERROR_MSG,
+                Success = false
+            };
+
+            if (ModelState.IsValid)
+            {
+                response = await _expensesService.AddCategory(rq);
+                return response;
+            }
+
+            return response;
         }
 
-        // POST api/<ExpensesController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("AddBudget")]
+        public async Task<BaseResponse> AddBudget([FromBody] AddBudgetsRq rq)
         {
+            var response = new BaseResponse()
+            {
+                StatusCode = ErrorCodes.ERROR_CODE,
+                StatusDescription = ErrorCodes.ERROR_MSG,
+                Success = false
+            };
+
+            if (ModelState.IsValid)
+            {
+                response = await _expensesService.AddBudget(rq);
+                return response;
+            }
+
+            return response;
         }
 
-        // PUT api/<ExpensesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPost("AddExpenses")]
+        public async Task<BaseResponse> AddExpenses([FromBody] AddExpensesRq rq)
         {
-        }
+            var response = new BaseResponse()
+            {
+                StatusCode = ErrorCodes.ERROR_CODE,
+                StatusDescription = ErrorCodes.ERROR_MSG,
+                Success = false
+            };
 
-        // DELETE api/<ExpensesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            if (ModelState.IsValid)
+            {
+                response = await _expensesService.AddExpenses(rq);
+                return response;
+            }
+
+            return response;
         }
     }
 }

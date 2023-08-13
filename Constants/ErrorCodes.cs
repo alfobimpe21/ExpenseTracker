@@ -1,6 +1,6 @@
 ﻿namespace ExpenseTrackerAPI.Constants
 {
-    public static class StatusCode
+    public static class ErrorCodes
     {
         public static string SUCCESS_CODE = "000";
         public static string SUCCESS_MSG = "SUCCESSFUL";
