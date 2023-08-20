@@ -86,9 +86,28 @@ namespace ExpenseTrackerAPI.Services
             var response = await _expenseRepository.ListBudget(UserId);
             return response;
         }
+
         public async Task<List<ListExpensesResp>> ListExpenses(string UserId)
         {
             var response = await _expenseRepository.ListExpenses(UserId);
+            return response;
+        }
+
+        public async Task<BaseResponse> DeleteCategory(DeleteRq req)
+        {
+            var response = await _expenseRepository.DeleteCategory(req);
+            return response;
+        }
+
+        public async Task<BaseResponse> DeleteBudget(DeleteRq req)
+        {
+            var response = await _expenseRepository.DeleteBudget(req);
+            return response;
+        }
+
+        public async Task<BaseResponse> DeleteExpenses(DeleteRq req)
+        {
+            var response = await _expenseRepository.DeleteExpenses(req);
             return response;
         }
     }

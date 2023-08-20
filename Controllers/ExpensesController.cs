@@ -96,6 +96,26 @@ namespace ExpenseTrackerAPI.Controllers
             return response;
         }
 
+        [HttpPost("DeleteCategory")]
+        public async Task<BaseResponse> DeleteCategory([FromBody] DeleteRq rq)
+        {
+            var response = await _expensesService.DeleteCategory(rq);
+            return response;
+        }
+
+        [HttpPost("DeleteBudget")]
+        public async Task<BaseResponse> DeleteBudget([FromBody] DeleteRq rq)
+        {
+            var response = await _expensesService.DeleteBudget(rq);
+            return response;
+        }
+
+        [HttpPost("DeleteExpenses")]
+        public async Task<BaseResponse> DeleteExpenses([FromBody] DeleteRq rq)
+        {
+            var response = await _expensesService.DeleteExpenses(rq);
+            return response;
+        }
 
     }
 }

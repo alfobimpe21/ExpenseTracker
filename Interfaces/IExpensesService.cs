@@ -12,5 +12,9 @@ namespace ExpenseTrackerAPI.Interfaces
 
         Task<List<ListBudgetResp>> ListBudget(string UserId);
         Task<List<ListExpensesResp>> ListExpenses(string UserId);
+
+        Task<BaseResponse> DeleteCategory(DeleteRq req);
+        Task<BaseResponse> DeleteExpenses(DeleteRq req);
+        Task<BaseResponse> DeleteBudget(DeleteRq req);
     }
 }

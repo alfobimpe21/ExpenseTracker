@@ -508,6 +508,168 @@ namespace ExpenseTrackerAPI.Services
             return listResp;
         }
 
+        public async Task<BaseResponse> DeleteCategory(DeleteRq request)
+        {
+            var response = new BaseResponse()
+            {
+                StatusCode = ErrorCodes.ERROR_CODE,
+                StatusDescription = ErrorCodes.ERROR_MSG,
+                Success = false
+            };
+
+            IDbCommand command;
+            IDbConnection conn = _connect.GetSQLDataConnection();
+
+            try
+            {
+                if (conn.State != ConnectionState.Open)
+                    conn.Open();
+                command = conn.CreateCommand();
+
+                command.CommandText = @"DELETE FROM Category WHERE Id = @id AND UserId = @userId";
+
+                var param = command.CreateParameter();
+                param.DbType = DbType.String;
+                param.ParameterName = "@UserId";
+                param.Direction = ParameterDirection.Input;
+                param.Value = request.UserId;
+                command.Parameters.Add(param);
+
+                param = command.CreateParameter();
+                param.DbType = DbType.String;
+                param.ParameterName = "@id";
+                param.Direction = ParameterDirection.Input;
+                param.Value = request.Id;
+                command.Parameters.Add(param);
+
+                command.CommandTimeout = 80;
+
+                var res = command.ExecuteNonQuery();
+                if (res == 1)
+                {
+                    response.Success = true;
+                    response.StatusCode = ErrorCodes.SUCCESS_CODE;
+                    response.StatusDescription = ErrorCodes.SUCCESS_MSG;
+                }
+
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception >>> {ex.Message}");
+            }
+
+            return response;
+        }
+
+        public async Task<BaseResponse> DeleteBudget(DeleteRq request)
+        {
+            var response = new BaseResponse()
+            {
+                StatusCode = ErrorCodes.ERROR_CODE,
+                StatusDescription = ErrorCodes.ERROR_MSG,
+                Success = false
+            };
+
+            IDbCommand command;
+            IDbConnection conn = _connect.GetSQLDataConnection();
+
+            try
+            {
+                if (conn.State != ConnectionState.Open)
+                    conn.Open();
+                command = conn.CreateCommand();
+
+                command.CommandText = @"DELETE FROM Budgets WHERE Id = @id AND UserId = @userId";
+
+                var param = command.CreateParameter();
+                param.DbType = DbType.String;
+                param.ParameterName = "@UserId";
+                param.Direction = ParameterDirection.Input;
+                param.Value = request.UserId;
+                command.Parameters.Add(param);
+
+                param = command.CreateParameter();
+                param.DbType = DbType.String;
+                param.ParameterName = "@id";
+                param.Direction = ParameterDirection.Input;
+                param.Value = request.Id;
+                command.Parameters.Add(param);
+
+                command.CommandTimeout = 80;
+
+                var res = command.ExecuteNonQuery();
+                if (res == 1)
+                {
+                    response.Success = true;
+                    response.StatusCode = ErrorCodes.SUCCESS_CODE;
+                    response.StatusDescription = ErrorCodes.SUCCESS_MSG;
+                }
+
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception >>> {ex.Message}");
+            }
+
+            return response;
+        }
+
+        public async Task<BaseResponse> DeleteExpenses(DeleteRq request)
+        {
+            var response = new BaseResponse()
+            {
+                StatusCode = ErrorCodes.ERROR_CODE,
+                StatusDescription = ErrorCodes.ERROR_MSG,
+                Success = false
+            };
+
+            IDbCommand command;
+            IDbConnection conn = _connect.GetSQLDataConnection();
+
+            try
+            {
+                if (conn.State != ConnectionState.Open)
+                    conn.Open();
+                command = conn.CreateCommand();
+
+                command.CommandText = @"DELETE FROM Expenses WHERE Id = @id AND UserId = @userId";
+
+                var param = command.CreateParameter();
+                param.DbType = DbType.String;
+                param.ParameterName = "@UserId";
+                param.Direction = ParameterDirection.Input;
+                param.Value = request.UserId;
+                command.Parameters.Add(param);
+
+                param = command.CreateParameter();
+                param.DbType = DbType.String;
+                param.ParameterName = "@id";
+                param.Direction = ParameterDirection.Input;
+                param.Value = request.Id;
+                command.Parameters.Add(param);
+
+                command.CommandTimeout = 80;
+
+                var res = command.ExecuteNonQuery();
+                if (res == 1)
+                {
+                    response.Success = true;
+                    response.StatusCode = ErrorCodes.SUCCESS_CODE;
+                    response.StatusDescription = ErrorCodes.SUCCESS_MSG;
+                }
+
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception >>> {ex.Message}");
+            }
+
+            return response;
+        }
+
 
     }
 }
