@@ -17,6 +17,21 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMvc();
 
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+
+    // make the session cookie Essential
+    // so that session variable is not null
+    // check this StackOverflow answer: https://stackoverflow.com/a/64984796/19112855
+    options.Cookie.IsEssential = true;
+});
+builder.Services.AddHttpContextAccessor();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -32,7 +47,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.UseStaticFiles();
-
+app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=home}/{action=Index}/{id?}"

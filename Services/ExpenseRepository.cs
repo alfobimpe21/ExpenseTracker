@@ -294,7 +294,7 @@ namespace ExpenseTrackerAPI.Services
                 {
                     response.Success = true;
                     response.StatusCode = ErrorCodes.SUCCESS_CODE;
-                    response.StatusDescription = ErrorCodes.SUCCESS_MSG;
+                    response.StatusDescription = "Registration is successful. Please login to start your session";
                 }
 
                 conn.Close();

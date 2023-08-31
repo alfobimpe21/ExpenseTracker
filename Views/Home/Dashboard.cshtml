@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accesor
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="~/css/all.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/adminlte.min.css" type="text/css">
+</head>
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                <a href="javascript:;" class="h1"><b>PaLaf</b>EXP</a>
+            </div>
+            <div class="card-body">
+               
+                <p class="login-box-msg">@Accesor.HttpContext.Session.GetString("ExpenseUserName")</p>
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="~/jquery/jquery.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/adminlte.min.js"></script>
+</body>
+</html>
+
+
