@@ -110,5 +110,11 @@ namespace ExpenseTrackerAPI.Services
             var response = await _expenseRepository.DeleteExpenses(req);
             return response;
         }
+
+        public async Task<Statistics> Statistics()
+        {
+            var response = await _expenseRepository.Statistics();
+            return response;
+        }
     }
 }

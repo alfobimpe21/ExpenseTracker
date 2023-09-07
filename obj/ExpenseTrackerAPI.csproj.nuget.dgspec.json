@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HP GAMER\\Desktop\\PROJECT WORK\\ExpenseTrackerAPI\\ExpenseTrackerAPI.csproj": {}
+    "C:\\Users\\hlibo\\OneDrive\\Desktop\\new project\\ExpenseTracker\\ExpenseTrackerAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HP GAMER\\Desktop\\PROJECT WORK\\ExpenseTrackerAPI\\ExpenseTrackerAPI.csproj": {
+    "C:\\Users\\hlibo\\OneDrive\\Desktop\\new project\\ExpenseTracker\\ExpenseTrackerAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP GAMER\\Desktop\\PROJECT WORK\\ExpenseTrackerAPI\\ExpenseTrackerAPI.csproj",
+        "projectUniqueName": "C:\\Users\\hlibo\\OneDrive\\Desktop\\new project\\ExpenseTracker\\ExpenseTrackerAPI.csproj",
         "projectName": "ExpenseTrackerAPI",
-        "projectPath": "C:\\Users\\HP GAMER\\Desktop\\PROJECT WORK\\ExpenseTrackerAPI\\ExpenseTrackerAPI.csproj",
-        "packagesPath": "C:\\Users\\HP GAMER\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HP GAMER\\Desktop\\PROJECT WORK\\ExpenseTrackerAPI\\obj\\",
+        "projectPath": "C:\\Users\\hlibo\\OneDrive\\Desktop\\new project\\ExpenseTracker\\ExpenseTrackerAPI.csproj",
+        "packagesPath": "C:\\Users\\hlibo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hlibo\\OneDrive\\Desktop\\new project\\ExpenseTracker\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\HP GAMER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\hlibo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -68,8 +67,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -81,7 +79,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }

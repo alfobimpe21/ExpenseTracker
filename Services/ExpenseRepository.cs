@@ -416,7 +416,7 @@ namespace ExpenseTrackerAPI.Services
                     conn.Open();
                 command = conn.CreateCommand();
 
-                command.CommandText = @"SELECT * FROM Budgets WHERE UserId = @UserId";
+                command.CommandText = @"SELECT C.CategoryName, B.* FROM Category C, Budgets B WHERE C.Id = B.CategoryId AND B.UserId = @UserId";
 
 
                 var param = command.CreateParameter();
@@ -441,6 +441,7 @@ namespace ExpenseTrackerAPI.Services
                         Salary = Convert.ToDecimal(rs["Salary"].ToString().Trim()),
                         SalaryMonth = rs["SalaryMonth"].ToString().Trim(),
                         SalaryPercentage = rs["SalaryPercentage"].ToString().Trim(),
+                        CategoryName = rs["CategoryName"].ToString().Trim(),
                         CreateDate = Convert.ToDateTime(rs["CreatedDate"].ToString().Trim())
                     };
 
@@ -670,6 +671,41 @@ namespace ExpenseTrackerAPI.Services
             return response;
         }
 
+        public async Task<Statistics> Statistics()
+        {
+            var stats = new Statistics();
+            IDbCommand command;
+            IDbConnection conn = _connect.GetSQLDataConnection();
+
+            try
+            {
+                if (conn.State != ConnectionState.Open)
+                    conn.Open();
+                command = conn.CreateCommand();
+
+                command.CommandText = @"SELECT(SELECT COUNT(*) FROM Category) AS CategoryCount, ( SELECT COUNT(*) FROM Budgets) AS BudgetCount";
+
+                command.CommandTimeout = 80;
+
+                using IDataReader rs = Task.FromResult(command.ExecuteReader(CommandBehavior.CloseConnection)).Result;
+                if (rs != null && rs.Read())
+                {
+                    stats.Budget = int.Parse(rs["BudgetCount"].ToString().Trim());
+                    stats.Category = int.Parse(rs["CategoryCount"].ToString().Trim());
+                }
+
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error >>>>>>>>>> {ex.Message}");
+            }
+
+            return stats;
+        }
+
+
+        
 
     }
 }

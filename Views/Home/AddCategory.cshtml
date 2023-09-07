@@ -1,0 +1,263 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accesor
+@model ExpenseTrackerAPI.Models.ViewModel<List<ExpenseTrackerAPI.Models.ListCategoryResp>>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Add Category </title>
+
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
+    <link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/css/buttons.bootstrap4.min.css">
+
+    <link rel="stylesheet" href="~/css/all.min.css">
+    <link rel="stylesheet" href="~/css/adminlte.min.css">
+
+
+    <!-- <link rel="stylesheet" href="css/bootstrap-4.min.css">
+    <link rel="stylesheet" href="css/toastr.min.css"> -->
+
+</head>
+<body class="hold-transition sidebar-mini">
+
+    <div class="wrapper">
+
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+
+            <div class="sidebar">
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        <img src="~/img/user1-128x128.jpg" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info">
+                        <a href="javascript:;" class="d-block">@Accesor.HttpContext.Session.GetString("ExpenseUserName")</a>
+                    </div>
+                </div>
+
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+                        <li class="nav-item">
+                            <a href="/Home/Dashboard" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p> Dashboard </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="/Home/AddCategory" class="nav-link">
+                                <i class="nav-icon fas fa-user-plus"></i>
+                                <p> Add Category </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="/Home/AddBudget" class="nav-link">
+                                <i class="nav-icon fas fa-user-plus"></i>
+                                <p> Add Budget </p>
+                            </a>
+                        </li>
+
+                        @*<li class="nav-item">
+                            <a href="/Home/AddExpenses" class="nav-link">
+                                <i class="nav-icon fas fa-user-plus"></i>
+                                <p> Add Expenses </p>
+                            </a>
+                        </li>*@
+
+                    </ul>
+                </nav>
+
+            </div>
+
+        </aside>
+
+
+        <div class="content-wrapper">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h3>Fimi Dashboard</h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <section class="content">
+
+                <div class="card">
+                    <div class="card-header">
+                        <span>Latest Transactions</span>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="card">
+                            
+                            @if(Model.Response != null)
+                            {
+                                if (Model.Response.StatusCode == "001")
+                                {
+                                    <div class="alert alert-danger alert-dismissible">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                        <h5><i class="icon fas fa-ban"></i> Alert!</h5>
+                                        @Model.Response.StatusDescription
+                                    </div>
+                                }
+                                else if (Model.Response.StatusCode == "000")
+                                {
+                                    <div class="alert alert-success alert-dismissible">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                        <h5><i class="icon fas fa-check"></i> Alert!</h5>
+                                        @Model.Response.StatusDescription
+                                    </div>
+                                }
+                            } 
+
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div style="text-align:center">
+                                            <p>
+                                                <em><b>Add Category</b></em>
+                                            </p>                                            
+                                        </div>
+
+                                        <form method="post">
+
+                                            <div class="form-group">
+                                                <label for="userid">User ID</label>
+                                                <input type="text" class="form-control" id="userid" name="UserId" readonly value="@Accesor.HttpContext.Session.GetString("ExpenseUserID")">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="categoryname">Category Name</label>
+                                                <input type="text" class="form-control" id="categoryname" name="CategoryName" placeholder="Enter Category Name">
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <button type="submit" class="btn btn-primary btn-block">Save</button>
+                                                </div>
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div style="text-align:center">
+                                            <p>
+                                                <em><b>List Of Category</b></em>
+                                            </p>                                            
+                                        </div>
+                                       
+                                         <table id="example1" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Category Name</th>
+                                                    <th>Create Date</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                @foreach(var item in Model.Data){
+                                                <tr>
+                                                    <td>@Html.Raw(item.CategoryName)</td>
+                                                    <td>@Html.Raw(item.CreateDate)</td>                                                   
+                                                   
+                                                    <td>
+                                                       
+                                                        <button id="DeleteBTN" onclick="DeleteCategory('@item.Id','@item.UserId')" type="button" class="btn btn-primary btn-xs" >
+                                                            Delete
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                }
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+
+                                </div>
+                               
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        <footer class="main-footer">
+            <div class="float-right d-none d-sm-block">
+            </div>
+        </footer>
+
+    </div>
+
+
+
+
+
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/dataTables.responsive.min.js"></script>
+    <script src="~/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/js/dataTables.buttons.min.js"></script>
+    <script src="~/js/buttons.bootstrap4.min.js"></script>
+
+    <script src="~/js/jszip.min.js"></script>
+    <script src="~/js/pdfmake.min.js"></script>
+    <script src="~/js/vfs_fonts.js"></script>
+
+    <script src="~/js/buttons.html5.min.js"></script>
+    <script src="~/js/buttons.print.min.js"></script>
+    <script src="~/js/buttons.colVis.min.js"></script>
+
+    <script src="~/js/adminlte.min.js"></script>
+
+    <script src="~/js/plugin.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- <script src="js/sweetalert2.min.js"></script>
+    <script src="js/toastr.min.js"></script> -->
+
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        });
+    </script>
+
+</body>
+</html>
+
+
+

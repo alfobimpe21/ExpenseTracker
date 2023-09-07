@@ -15,5 +15,6 @@ namespace ExpenseTrackerAPI.Interfaces
         Task<BaseResponse> DeleteCategory(DeleteRq request);
         Task<BaseResponse> DeleteBudget(DeleteRq request);
         Task<BaseResponse> DeleteExpenses(DeleteRq request);
+        Task<Statistics> Statistics();
     }
 }
