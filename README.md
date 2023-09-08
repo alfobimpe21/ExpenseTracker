@@ -5,7 +5,17 @@ To get started with the Expense Tracker App, you can download the project as a Z
 Extract the downloaded ZIP file to a directory of your choice on your local computer.
 Run the ExpenseTrackerAPI.sln file with your Visual Studio.
 
-In your Visual Studio, Click The Play button with ExpenseTrackerAPI attached to Run the Web Application.
+Acivate Database Server
+In the extracted zip fie, navigate to "DB" folder
+open the script
+
+
+
+In your Visual Studio, 
+
+navigate to appsetteings.json and change server name to your local server.
+Save All changes 
+Now Click The Play button with ExpenseTrackerAPI attached to Run the Web Application.
 Explore afterwards.
 
 OR 
